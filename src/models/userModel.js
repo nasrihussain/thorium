@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 
-const bookSchema = new mongoose.Schema( {
-    bookName: String,
-    authorName: String,
-    year: {
+const userSchema = new mongoose.Schema( {
+    firstName: String,
+    lastName: String,
+    mobile: {
         type: String,
-        unique: true, // 
-        required: true // compulsory 
+        unique: true,
+        required: true
     },
-    // emailId: String,
-    category: {
+    emailId: String,
+    gender: {
         type: String,
-        enum: ["Self-help", "business", "motivation"] //"falana" will give an error
+        enum: ["male", "female", "LGBTQ"] //"falana" will give an error
     },
-    // age: Number,
+    age: Number,
     // isIndian: Boolean,
     // parentsInfo: {
     //     motherName: String,
@@ -23,7 +23,7 @@ const bookSchema = new mongoose.Schema( {
     // cars: [ String  ]
 }, { timestamps: true });
 
-module.exports = mongoose.model('User', bookSchema) //users
+module.exports = mongoose.model('User', userSchema) //users
 
 
 

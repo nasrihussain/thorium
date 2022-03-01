@@ -11,8 +11,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect("mongodb+srv://nasirhussain7878:llo5gS70CAxajLIs@cluster0.neahs.mongodb.net/Nasir78", {
     useNewUrlParser: true
 })
-.then( () => console.log("MongoDb is connected"))  //. means jab wo connect hoga tab hi return krega
-.catch ( err => console.log(err) )  // 
+.then( () => console.log("MongoDb is connected"))
+.catch ( err => console.log(err) )
 
 app.use('/', route);
 
