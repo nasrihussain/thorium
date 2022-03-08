@@ -1,22 +1,19 @@
-
 const express = require('express');
-
 const router = express.Router();
-const productController = require('../controllers/productController');
-const userController = require('../controllers/userController');
-const middlewares = require('../middleware/middleware');
-const orderController = require('../controllers/orderController')
+const userController= require("../controllers/userController")
+const middleware=require("../middleware/mid")
 
-//  POST api to create a product
+router.get("/test-me", function (req, res) {
+    res.send("My first ever api!")
+})
 
-router.post('/createProduct', productController.createProduct)
+router.post("/users",middleware.mid, userController.createUser  )
 
-//   POST api to create a user that takes user details from the request body.
+router.post("/login",middleware.mid, userController.loginUser)
 
-router.post('/createUser', middlewares.validation, userController.createUser)
+router.get("/users/:userId",middleware.mid,userController.getUserData)
+router.put("/users/:userId", userController.updateUser)
 
-// POST api for order purchase that takes a userId and a productId in request body
-
-router.post('/createOrder', middlewares.validation, orderController.createOrder);
+router.delete("/delete/:userId",userController.deleteUser)
 
 module.exports = router;
