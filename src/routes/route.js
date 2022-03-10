@@ -1,8 +1,8 @@
-
 const express = require('express');
 const router = express.Router();
 const userController= require("../controllers/userController")
-const midware= require("../middleware/auth")
+const token1= require("../middleware/auth")
+const jwt = require("jsonwebtoken");
 
 
 router.get("/test-me", function (req, res) {
@@ -14,13 +14,13 @@ router.post("/users", userController.createUser)
 router.post("/login", userController.loginUser)
 
 //The userId is sent by front end
-router.get("/users/:userId",midware.authenticate,midware.authorise, userController.getUserData)
+router.get("/users/:userId",token1.tokenCheck,token1.authorise, userController.getUserData)
 
-router.post("/users/:userId/posts",midware.authenticate,midware.authorise, userController.createPost)
+router.post("/users/:userId/posts",token1.tokenCheck,token1.authorise, userController.postMessage)
 
-router.put("/users/:userId",midware.authenticate,midware.authorise, userController.updateUser)
+router.put("/users/:userId",token1.tokenCheck,token1.authorise, userController.updateUser)
 
-router.delete('/users/:userId',midware.authenticate,midware.authorise, userController.deleteStatusUpdate )
+router.delete('/users/:userId',token1.tokenCheck,token1.authorise, userController.deleteUser)
 
 module.exports = router;
 
