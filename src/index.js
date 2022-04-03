@@ -1,49 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const route = require('./routes/route.js');
+const route = require('./routes/routes.js');
 const { default: mongoose } = require('mongoose');
+const multer = require("multer")
 const app = express();
 
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(multer().any())
 
-mongoose.connect("mongodb+srv://nasirhussain7878:llo5gS70CAxajLIs@cluster0.neahs.mongodb.net/new-db?authSource=admin&replicaSet=atlas-udybrv-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true", {
+mongoose.connect("mongodb+srv://thorium-cohort:qwertyuiop@cluster0.xyklh.mongodb.net/AWS-session?authSource=admin&replicaSet=atlas-wc30tm-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true", {
     useNewUrlParser: true
 })
+
 .then( () => console.log("MongoDb is connected"))
 .catch ( err => console.log(err) )
 
-let globalMiddleware = function(req, res, next){
-    let currentDate = new Date()
-    console.log('Before adding custom header '+JSON.stringify(req.headers))
-    let contentTypeHeader = req.headers["content-type"]
-    let name = "functionup"
-    req.headers.organisation = name
-    //console.log('content-type header is '+contentTypeHeader)
-    console.log('After adding custom header '+JSON.stringify(req.headers))
-    console.log('Before adding custom response header '+JSON.stringify(res.getHeaders()))
-    res.setHeader('batch','thorium')
-    console.log('After adding custom response header '+JSON.stringify(res.getHeaders()))
-    req.newAtribute = 'India'
-    let date = currentDate.getDate()
-    let month = currentDate.getMonth() + 1
-    let year = currentDate.getFullYear()
-    let hour = currentDate.getHours()
-    let minutes = currentDate.getMinutes()
-    let seconds = currentDate.getSeconds()
-
-    let formattedDate = year + "-" + month + "-" + date + " " + hour + ":" + minutes + ":" + seconds
-    let url = req.originalUrl
-    let ip = req.ip
-    let result = formattedDate + ", " + ip + ", " + url
-    
-    console.log(result)
-    next()
-}
-
-app.use(globalMiddleware)
-app.use('/', route)
+app.use('/', route);
 
 
 app.listen(process.env.PORT || 3000, function () {
